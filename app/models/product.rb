@@ -1,4 +1,8 @@
 class Product < ApplicationRecord
+
+  belongs_to :supplier
+  has_many :images
+
   def discounted?
     price.to_f < 50
   end
