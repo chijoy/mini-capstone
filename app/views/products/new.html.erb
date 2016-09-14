@@ -1,4 +1,4 @@
-<h1> Create a new product </h1>
+<h1> Create a New Pet Product </h1>
 
 <%= form_tag '/products', method: :post do %>
   <div>
@@ -17,6 +17,13 @@
     <%= label_tag :description %>
     <%= text_field_tag :description %>
   </div>
+
+  <div>
+    <%= label_tag :supplier_id %>
+    <%= collection_select :supplier, :supplier_id, Supplier.all, :id, :name %>
+  </div>
+
+
   <div>
     <%= submit_tag "Create it!" %>
   </div>

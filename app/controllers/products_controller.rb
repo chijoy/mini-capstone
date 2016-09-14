@@ -32,8 +32,11 @@ class ProductsController < ApplicationController
   def create
     @product = Product.create(name: params[:name],
                               price: params[:price],
-                              image: params[:image],
-                              description: params[:description])
+                              description: params[:description],
+                              supplier_id: params[:supplier][:supplier_id])
+
+    Image.create(url: params[:image], product_id: @product.id) if params[:image]
+    Image.create(url: params[:image_2], product_id: @product.id) if params[:image_2]
 
     flash[:success] = "Product has been created."
     redirect_to "/products/#{@product.id}"
@@ -53,7 +56,6 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.update(name: params[:name],
                     price: params[:price],
-                    image: params[:image],
                     description: params[:description])
 
     flash[:success] = "Product has been updated."
