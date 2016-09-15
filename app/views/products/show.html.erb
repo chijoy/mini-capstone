@@ -18,3 +18,13 @@
 <h3><%= link_to 'Delete', "/products/#{@product.id}", method: :delete %></h3>
 
 <p> Supplied By: <%= @product.supplier.name %></p>
+
+
+
+<%= form_tag '/orders', method: :post do %>
+  <div>
+    <%= label_tag :quantity %>
+    <%= text_field_tag :quantity %>
+  </div>
+  <%= submit_tag "Buy Now!" %>
+<% end %>
