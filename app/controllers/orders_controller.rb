@@ -1,13 +1,25 @@
 class OrdersController < ApplicationController
-  def new
+  def create
+    product = Product.find(params[:product_id])
+    
+
+    @order = Order.new(
+      user_id: current_user.id,
+      product_id: params[:product_id],
+      quantity: params[:quantity].to_i
+    )
+
+    @order.calculate_subtotal
+    @order.calculate_tax
+    @order.calculate_total
+    @order.save
+
+    flash[:success] = "Order complete"
+    redirect_to "/orders/#{@order.id}"
   end
 
-  def create
-    @order = Order.create(user_id: params[:user_id],
-                          quantity: params[:quantity],
-                          product_id: params[:product_id])
-
-    flash[:success] = @order.message
-    redirect_to '/products'
+  def show
+    @order = Order.find(params[:id])
+    @product = @order.product
   end
 end

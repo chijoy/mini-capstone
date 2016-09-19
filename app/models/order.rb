@@ -1,8 +1,21 @@
 class Order < ApplicationRecord
   belongs_to :user
-  belongs_to :product
+  has_many :products
 
-  def message
-    "Your order for #{name} with product id of #{product_id}, quantity #{quantity} has been created!"
+
+  def pretty_created_at
+    created_at.strftime("%A, %b %d")
+  end
+
+  def calculate_subtotal
+    self.subtotal = product.price * quantity
+  end
+
+  def calculate_tax
+    self.tax = subtotal * 0.09
+  end
+
+  def calculate_total
+    self.total = subtotal + tax
   end
 end

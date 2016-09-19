@@ -1,0 +1,10 @@
+<h1><%= current_user.name %> Here's your order</h1>
+
+<h3> <%= @product.name %></h3>
+<p>Order id: <%= @order.id %></p>
+<p>Purchased on: <%= @order.pretty_created_at %></p>
+<p>Quantity: <%= @order.quantity %></p>
+
+<p>Subtotal: <%= number_to_currency(@order.subtotal) %></p>
+<p>Tax: <%= number_to_currency(@order.tax) %></p>
+<h2>Total: <%= number_to_currency(@order.total) %></h2>

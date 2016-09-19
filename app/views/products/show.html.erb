@@ -18,13 +18,18 @@
 <h3><%= link_to 'Delete', "/products/#{@product.id}", method: :delete %></h3>
 
 <p> Supplied By: <%= @product.supplier.name %></p>
+<p> <% @categories.each do |category| %></p>
+    <p><a href="/products?category=<%= category.name %>"<%= category.name.titleize %></a></p>
+    <p><%= category.name.titleize %></p>
+<% end %>
 
-
-
-<%= form_tag '/orders', method: :post do %>
+<%= form_tag '/carted_products', method: :post do %>
   <div>
     <%= label_tag :quantity %>
-    <%= text_field_tag :quantity %>
+    <%= text_field_tag :quantity, nil, placeholder: "Quantity goes here" %>
   </div>
-  <%= submit_tag "Buy Now!" %>
+  <div>
+    <%= hidden_field_tag :product_id, @product.id %>
+  </div>
+  <%= submit_tag "Add to Cart!" %>
 <% end %>

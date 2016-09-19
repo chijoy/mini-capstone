@@ -43,11 +43,6 @@
           <%= submit_tag 'Search', class: "btn btn-default" %>
         <% end %>
 
-
-
-        
-
-
         <ul class="nav navbar-nav navbar-right">
 
 
@@ -59,8 +54,15 @@
               <li><a href="/products?sort=name">Sort by Name</a></li>
               <li><a href="/products?discount=50">Discount Items</a></li>
               <li><a href="/products/random">Random Item</a></li>
+              
+             
               <li role="separator" class="divider"></li>
               <li><a href="#">Separated link</a></li>
+              <li>Categories</li>
+              <% @categories_list.each do |category| %>
+               <li><a href="/products?category=<%= category.name %>"<%= category.name.titleize %> Product Categories</a></li>
+               <li><%= category.name.titleize %> Product Categories</li>
+              <% end %>
             </ul>
           </li>
         </ul>

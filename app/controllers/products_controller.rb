@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  
   def index
     @products = Product.all
     sort_attribute = params[:sort]
@@ -6,6 +7,11 @@ class ProductsController < ApplicationController
     discount_level = params[:discount]
     @random_product_id = Product.all.sample.id
     search_term = params[:search_term]
+    category = params[:category]
+
+    if category
+      @products = Category.find_by(name: category).products 
+    end
 
     if search_term
       fuzzy_search_term = "%#{search_term}%"
@@ -21,8 +27,6 @@ class ProductsController < ApplicationController
     elsif sort_attribute
       @products = @products.order(sort_attribute)
     end
-
-    
   end
 
   def new
@@ -43,9 +47,9 @@ class ProductsController < ApplicationController
   end
 
   def show
-    
-      @product = Product.find_by(id: params[:id])
-    
+    @product = Product.find_by(id: params[:id])
+    @categories = @product.categories
+    @supplier = @product.supplier
   end
 
   def edit
