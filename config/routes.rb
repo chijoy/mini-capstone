@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/products/random' => 'products#random'
   get '/' => 'suppliers#index'
   get '/suppliers' => 'suppliers#index'
+  get '/checkout' => 'carted_products#index'
   
   get '/products/new' => 'products#new'
   post '/products' => 'products#create'

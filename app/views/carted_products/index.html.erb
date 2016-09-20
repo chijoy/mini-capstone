@@ -1,0 +1,23 @@
+<h1>Checkout Page</h1>
+
+<div class="row">
+
+  <% @carted_products.each do |carted_product| %>
+    <div class="col-md-6">
+      <div class="well thumbnail index-list">
+        
+        <h3><%= carted_product.id %></h3>
+        <h3><%= carted_product.user_id %></h3>
+        <h3><%= carted_product.quantity %></h3>
+        
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= form_tag '/orders', method: :post do %>
+  
+  <div>
+    <%= submit_tag "Buy Now!" %>
+  </div>
+<% end %>

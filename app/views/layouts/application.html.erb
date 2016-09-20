@@ -11,67 +11,67 @@
   <body>
 
     <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/products">PetProductPalooza</a>
-      </div>
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/products">PetProductPalooza</a>
+        </div>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="<%= '/products/new' %>">Create A Pet Product<span class="sr-only">(current)</span></a></li>
-          <li class="active"><a href="<%= '/login' %>">Login<span class="sr-only">(current)</span></a></li>
-          <li class="active"><a href="<%= '/logout' %>">Logout<span class="sr-only">(current)</span></a></li>
-          <li class="active"><a href="<%= '/signup' %>">Signup<span class="sr-only">(current)</span></a></li>
-    
-            </ul>
-          </li>
-        </ul>
-        
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="<%= '/products/new' %>">Create A Pet Product<span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="<%= '/login' %>">Login<span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="<%= '/logout' %>">Logout<span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="<%= '/signup' %>">Signup<span class="sr-only">(current)</span></a></li>
+      
+              </ul>
+            </li>
+          </ul>
+          
 
-        <%= form_tag '/products', method: :get, class: "navbar-form navbar-left"  do %>
-          <div class="form-group">
-            <%= text_field_tag :search_term, nil, placeholder: "Search", class: "form-control" %>
-          </div>
-          <%= submit_tag 'Search', class: "btn btn-default" %>
-        <% end %>
+          <%= form_tag '/products', method: :get, class: "navbar-form navbar-left"  do %>
+            <div class="form-group">
+              <%= text_field_tag :search_term, nil, placeholder: "Search", class: "form-control" %>
+            </div>
+            <%= submit_tag 'Search', class: "btn btn-default" %>
+          <% end %>
 
-        <ul class="nav navbar-nav navbar-right">
-
-
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="/products?sort=price">Sort by Price Lowest to Highest</a></li>
-              <li><a href="/products?sort=price&sort_order=desc">Sort by Price Highest to Lowest</a></li>            
-              <li><a href="/products?sort=name">Sort by Name</a></li>
-              <li><a href="/products?discount=50">Discount Items</a></li>
-              <li><a href="/products/random">Random Item</a></li>
-              
-             
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-              <li>Categories</li>
-              <% @categories_list.each do |category| %>
-               <li><a href="/products?category=<%= category.name %>"<%= category.name.titleize %> Product Categories</a></li>
-               <li><%= category.name.titleize %> Product Categories</li>
-              <% end %>
-            </ul>
-          </li>
-        </ul>
+          <ul class="nav navbar-nav navbar-right">
 
 
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/products?sort=price">Sort by Price Lowest to Highest</a></li>
+                <li><a href="/products?sort=price&sort_order=desc">Sort by Price Highest to Lowest</a></li>            
+                <li><a href="/products?sort=name">Sort by Name</a></li>
+                <li><a href="/products?discount=50">Discount Items</a></li>
+                <li><a href="/products/random">Random Item</a></li>
+                
+               
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+                <li>Categories</li>
+                <% @categories_list.each do |category| %>
+                 <li><a href="/products?category=<%= category.name %>"><%= category.name.titleize %> Product Categories</a></li>
+                 <li><%= category.name.titleize %> Product Categories</li>
+                <% end %>
+              </ul>
+            </li>
+          </ul>
 
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
+
+
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
 
     <div class="container">
 

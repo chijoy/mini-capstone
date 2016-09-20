@@ -19,7 +19,7 @@
 
 <p> Supplied By: <%= @product.supplier.name %></p>
 <p> <% @categories.each do |category| %></p>
-    <p><a href="/products?category=<%= category.name %>"<%= category.name.titleize %></a></p>
+    <p><a href="/products?category=<%= category.name %>"><%= category.name.titleize %></a></p>
     <p><%= category.name.titleize %></p>
 <% end %>
 
@@ -31,5 +31,7 @@
   <div>
     <%= hidden_field_tag :product_id, @product.id %>
   </div>
-  <%= submit_tag "Add to Cart!" %>
+  <div>
+    <%= submit_tag "Add to Cart!" %>
+  </div>
 <% end %>
