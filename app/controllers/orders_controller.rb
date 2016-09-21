@@ -1,16 +1,11 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
+
   def create
-    
-    product = Product.find(params[:product_id])
-
-    @order = Order.new
-
-    (current_user.carted_products.where("status = ?", "carted" )
-      
-    @order.calculate_subtotal
-    @order.calculate_tax
-    @order.calculate_total
-    @order.save
+    @carted_products = current_user.currently_carted
+    @order = Order.create(user_id: current_user.id)
+    @carted_products.update_all(order_id: @order.id, status: "purchased")
+    @order.calculate_totals
 
     flash[:success] = "Order complete"
     redirect_to "/orders/#{@order.id}"
@@ -18,6 +13,6 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    @product = @order.product
+    redirect_to '/' if @order.user_id != current_user.id
   end
 end

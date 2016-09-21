@@ -1,7 +1,9 @@
 class ProductsController < ApplicationController
   
+  before_action :authenticate_admin!, except: [:index, :show]
+
   def index
-    @products = Product.all
+    @products = Product.all.includes(:images)
     sort_attribute = params[:sort]
     sort_order = params[:sort_order]
     discount_level = params[:discount]
@@ -34,6 +36,7 @@ class ProductsController < ApplicationController
   end
 
   def create
+    
     @product = Product.create(name: params[:name],
                               price: params[:price],
                               description: params[:description],
@@ -44,6 +47,7 @@ class ProductsController < ApplicationController
 
     flash[:success] = "Product has been created."
     redirect_to "/products/#{@product.id}"
+    
   end
 
   def show
@@ -53,10 +57,13 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    
     @product = Product.find(params[:id])
+    
   end
 
   def update
+    
     @product = Product.find(params[:id])
     @product.update(name: params[:name],
                     price: params[:price],
@@ -64,14 +71,17 @@ class ProductsController < ApplicationController
 
     flash[:success] = "Product has been updated."
     redirect_to "/products/#{@product.id}"
+    
   end
 
   def destroy
-    @product = Product.find(params[:id])
-    @product.destroy
+    
+      @product = Product.find(params[:id])
+      @product.destroy
 
-    flash[:warning] = "Product has been deleted."
-    redirect_to '/products'
+      flash[:warning] = "Product has been deleted."
+      redirect_to '/products'
+    
   end
 
   def random

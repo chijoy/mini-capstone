@@ -1,15 +1,19 @@
-
-<div class="row">
-
-  <% @products.each do |product| %>
-    <div class="col-md-6">
-      <div class="well thumbnail index-list">
-        <h3>Name: <a href="/products/<%= product.id %>"><%= product.name %></a></h3>
-        <h3> <%= link_to product.name, "/products/#{product.id}" %>
-        <h3>Price: $<%= product.price %></h3>
-        <h3><%= product.images.first %> alt="<%= product.name %>"></h3>
-        <h4>Description: <%= product.description %></h4>
-      </div>
-    </div>
-  <% end %>
-</div>
+<%= @products.each_slice(3) do |product_row| %>
+  <div class="row">
+    <%= product_row.each do |product| %>
+      <% @products.each do |product| %>
+        <div class="col-md-6">
+          <div class="well thumbnail index-list">
+            <h2> <%= link_to product.name, "/products/#{product.id}" %></h2>
+            <h3>Price: $<%= product.price %></h3>
+            <a href="/products/<%= product.id %>">
+              <img src="<%= product.images.first %>" alt="<%= product.name %>">
+            </a>
+            <h4>Description: <%= product.description %></h4>
+            <h4>Attributes: </h4>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

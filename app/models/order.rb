@@ -1,21 +1,26 @@
 class Order < ApplicationRecord
   belongs_to :user
-  has_many :products
-
+  has_many :carted_products
+  has_many :products, through: :carted_products
 
   def pretty_created_at
     created_at.strftime("%A, %b %d")
   end
 
-  def calculate_subtotal
-    self.subtotal = product.price * quantity
+  def id_present_to_customer
+    34000 + id 
   end
 
-  def calculate_tax
+  def calculate_totals
+    
+    subtotal_collector = 0
+    carted_products.each do |carted_product|
+      subtotal_collector += carted_product.subtotal
+    end
+
+    self.subtotal = subtotal_collector
     self.tax = subtotal * 0.09
-  end
-
-  def calculate_total
     self.total = subtotal + tax
+    save
   end
 end
