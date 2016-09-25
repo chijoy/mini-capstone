@@ -10,11 +10,14 @@
     <h3>On Sale!</h3>
   <% end %>
 
-<h2>"<%= @product.images %>"</h2>
+<% @product.images.each do |image_object| %>
+  <img src="<%= image_object.url %>" alt="<%= @product.name %>" class="img-responsive">
+<% end %>
+
 <h4>Description: <%= @product.description %></h4>
 
 <h3><%= link_to 'Home', '/products' %></h3>
-<%= if current_user && current_user.admin %>
+<% if current_user && current_user.admin %>
   <h3><%= link_to 'Edit', "/products/#{@product.id}/edit" %></h3>
   <h3><%= link_to 'Delete', "/products/#{@product.id}", method: :delete %></h3>
 <% end %>

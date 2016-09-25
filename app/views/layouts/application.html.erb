@@ -2,10 +2,10 @@
 <html>
   <head>
     <title>PetProductPalooza</title>
-    <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
+  
   </head>
   <body>
   <header>
@@ -26,15 +26,15 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li class="active"><a href="<%= '/products/new' %>">Create A Pet Product<span class="sr-only">(current)</span></a></li>
-            <li class="active"><a href="<%= '/login' %>">Login<span class="sr-only">(current)</span></a></li>
-            <li class="active"><a href="<%= '/logout' %>">Logout<span class="sr-only">(current)</span></a></li>
-            <li class="active"><a href="<%= '/signup' %>">Signup<span class="sr-only">(current)</span></a></li>
-      
-              </ul>
-            </li>
+
+            <% if current_user %>
+              <li><%= link_to 'Log Out', '/logout', method: :delete %></li>
+            <% else %>
+              <li><a href="/signup">Sign Up</a></li>
+              <li><a href="/login">Log In</a></li>
+            <% end %>     
           </ul>
           
-
           <%= form_tag '/products', method: :get, class: "navbar-form navbar-left"  do %>
             <div class="form-group">
               <%= text_field_tag :search_term, nil, placeholder: "Search", class: "form-control" %>
@@ -42,27 +42,23 @@
             <%= submit_tag 'Search', class: "btn btn-default" %>
           <% end %>
 
-          <ul class="nav navbar-nav navbar-right">
-      
+          <ul class="nav navbar-nav navbar-right">      
             <%= link_to "<span class='glyphicon glyphicon-shopping-cart'></span> Cart(#{@cart_count}".html_safe, "/carted_products" %>
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/products?sort=price">Sort by Price Lowest to Highest</a></li>
-                <li><a href="/products?sort=price&sort_order=desc">Sort by Price Highest to Lowest</a></li>            
-                <li><a href="/products?sort=name">Sort by Name</a></li>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort Options <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="/products?sort=price">Price Lowest to Highest</a></li>
+                <li><a href="/products?sort=price&sort_order=desc">Price Highest to Lowest</a></li>            
+                <li><a href="/products?sort=name">Name</a></li>
                 <li><a href="/products?discount=50">Discount Items</a></li>
                 <li><a href="/products/random">Random Item</a></li>
                 
-               
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li>Categories</li>
+                <li class="divider"></li>
+              
                 <% @categories_list.each do |category| %>
-                 <li><a href="/products?category=<%= category.name %>"><%= category.name.titleize %> Product Categories</a></li>
-                 <li><%= category.name.titleize %> Product Categories</li>
-                <% end %>
+                 <li><a href="/products?category=<%= category.name %>"><%= category.name.titleize %></a></li>
+                <% end %>                                       
               </ul>
             </li>
           </ul>
@@ -73,9 +69,10 @@
   <div class="container-fluid">
   <% flash.each do |name, message| %>
     <div class="alert alert-<%= name %> alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><p><%= message %></p>
     </div>
     <% end %>  
   <%= yield %>
-</body>
-</html>
+  </div>
+  </body>
+  </html>
