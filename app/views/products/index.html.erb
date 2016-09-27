@@ -7,7 +7,6 @@
             <h2> <%= link_to product.name, "/products/#{product.id}" %></h2>
             <h3>Price: $<%= product.price %></h3>
             <a href="/products/<%= product.id %>">
-              <img src="<%= product.images.first.url %>" alt="<%= product.name %>">
             </a>
             <h4>Description: <%= product.description %></h4>
             <h4>Attributes: </h4>
