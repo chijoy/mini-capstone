@@ -1,18 +1,15 @@
-<%= @products.each_slice(3) do |product_row| %>
+<% @products.each_slice(2) do |product_row| %>
   <div class="row">
-    <%= product_row.each do |product| %>
-      <% @products.each do |product| %>
-        <div class="col-md-6">
-          <div class="well thumbnail index-list">
-            <h2> <%= link_to product.name, "/products/#{product.id}" %></h2>
-            <h3>Price: $<%= product.price %></h3>
-            <a href="/products/<%= product.id %>">
-            </a>
-            <h4>Description: <%= product.description %></h4>
-            <h4>Attributes: </h4>
-          </div>
+    <% product_row.each do |product| %>
+      <div class="col-md-6">
+        <div class="well thumbnail index-list">
+          <h2> <%= link_to product.name, "/products/#{product.id}" %></h2>
+          <h3>Price: $<%= product.price %></h3>
+          <a href="/products/<%= product.id %>" title="View Product"><img src="<%= product.images.first.url %>" alt="<%= product.name %>" class="img-responsive product_single_image"></a>
+          <h4>Description: <%= product.description %></h4>
+          <h4>Attributes: </h4>
         </div>
-      <% end %>
+      </div>
     <% end %>
   </div>
 <% end %>
